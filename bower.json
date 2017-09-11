@@ -1,0 +1,26 @@
+{
+    "name": "falconio-clipboard",
+    "description": "falconio-clipboard",
+    "main": "falconio-clipboard.html",
+    "license": "MIT License",
+    "keywords": [
+      "Falcon.io",
+      "clipboard",
+      "web-components",
+      "web-component",
+      "polymer"
+    ],
+    "version": "1.0.0",
+    "dependencies": {
+      "polymer": "^1.9",
+      "iron-demo-helpers": "iron-demo-helpers#^1.0.0",
+      "iron-component-page": "iron-component-page#^1.0.0"
+    },
+    "devDependencies": {
+      "web-component-tester": "^6.0.0"
+    },
+    "resolutions": {
+      "polymer": "^1.9"
+    }
+  }
+  

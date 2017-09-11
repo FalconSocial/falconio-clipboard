@@ -1,0 +1,80 @@
+<link rel="import" href="../../../../polymer/polymer.html">
+
+<!--
+`<falconio-clipboard>` enables you to copy text into the host system clipboard.
+
+### Example
+
+    <falconio-clipboard id="clipboard"></falconio-clipboard>
+
+    <script>
+        // let's copy into clipboard for later pasting around
+        this.$.clipboard.copy('copy me please');
+    </script>
+
+this is pretty much stolen goods from
+https://github.com/feross/clipboard-copy/blob/master/index.js
+-->
+
+<script>
+
+    Polymer({
+
+        is: 'falconio-clipboard',
+
+        /**
+         * Copies text into clipboard
+         * @param {string} text text to copy
+         * @return {boolean} whether being successful
+         */
+        copy: function (text) {
+
+            // A <span> contains the text to copy
+            var span = document.createElement('span');
+            span.textContent = text;
+            span.style.whiteSpace = 'pre'; // Preserve consecutive spaces and newlines
+
+            // An <iframe> isolates the <span> from the page's styles
+            var iframe = document.createElement('iframe');
+            iframe.sandbox = 'allow-same-origin';
+            document.body.appendChild(iframe);
+
+            var win = iframe.contentWindow;
+            win.document.body.appendChild(span);
+
+            var selection = win.getSelection();
+
+            // Firefox fails to get a selection from <iframe> window, so fallback
+            if (!selection) {
+                win = window;
+                selection = win.getSelection();
+                document.body.appendChild(span);
+            }
+
+            var range = win.document.createRange();
+            selection.removeAllRanges();
+            range.selectNode(span);
+            selection.addRange(range);
+
+            var success = false;
+
+            try {
+                success = win.document.execCommand('copy');
+            } catch (err) {
+                // handle
+            }
+
+            selection.removeAllRanges();
+            span.remove();
+            iframe.remove();
+
+            this.dispatchEvent(new CustomEvent('falconio-clipboard-copy', {
+                detail: {
+                    buffer: text
+                }
+            }));
+
+            return success;
+       }
+    });
+</script>

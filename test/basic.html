@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>falconio clipboard tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <!-- load our test subject -->
+    <link rel="import" href="../falconio-clipboard.html">
+</head>
+
+<body>
+
+    <test-fixture id="basic">
+        <template>
+            <falconio-clipboard></falconio-clipboard>
+        </template>
+    </test-fixture>
+
+    <script>
+
+    describe('Basic tests', function() {
+
+        var el;
+
+        beforeEach(function() {
+            el = fixture('basic');
+        });
+
+        it('emits event with copied buffer', function () {
+            var spy = sinon.spy();
+            el.addEventListener('falconio-clipboard-copy', spy);
+            el.copy('test');
+
+            var detail = spy.args[0][0].detail;
+            var expectedResult = { buffer: 'test' };
+
+            expect(spy).to.have.been.calledOnce;
+            expect(detail).to.deep.equal(expectedResult);
+        });
+
+    });
+
+    </script>
+</body>
+
+</html>
