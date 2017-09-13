@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Falcon.io Clipboard</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+
+    <link rel="import" href="../falconio-clipboard.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+        .vertical-section-container {
+            max-width: 800px;
+        }
+
+        #wrapper {
+            width: 100%;
+        }
+
+        #container input {
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body unresolved>
+
+    <div class="vertical-section-container centered">
+
+        <h4>Demo of basic element</h4>
+        <demo-snippet class="centered-demo">
+            <template id="demo1">
+                <falconio-clipboard id="clipboard">copy me please</falconio-clipboard>
+               
+                <button id="copy-button">Copy</button>
+                <script>
+                    // let's copy into clipboard for later pasting around
+                    // this.$.clipboard.copy('copy me please');
+                    const btn = document.querySelector('#copy-button');
+                    const clipboard = document.querySelector('#clipboard');
+                    btn.addEventListener('click', function (e) {
+                        clipboard.copy('copy me please');
+                    }, false);
+                </script>
+            </template>
+        </demo-snippet>
+
+    </div>
+
+</body>
+
+</html>
