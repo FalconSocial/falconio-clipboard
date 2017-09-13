@@ -34,16 +34,27 @@
         <h4>Demo of basic element</h4>
         <demo-snippet class="centered-demo">
             <template id="demo1">
-                <falconio-clipboard id="clipboard">copy me please</falconio-clipboard>
+                <falconio-clipboard id="clipboard"><span>Copy Me</span></falconio-clipboard>
                
-                <button id="copy-button">Copy</button>
+                <button id="copy-button-1">Copy</button>
                 <script>
-                    // let's copy into clipboard for later pasting around
-                    // this.$.clipboard.copy('copy me please');
-                    const btn = document.querySelector('#copy-button');
+                    const btn1 = document.querySelector('#copy-button-1');
                     const clipboard = document.querySelector('#clipboard');
-                    btn.addEventListener('click', function (e) {
-                        clipboard.copy('copy me please');
+                    btn1.addEventListener('click', function (e) {
+                        clipboard.copy(clipboard.innerHTML);
+                        alert('Copied');
+                    }, false);
+                </script>
+            </template>
+        </demo-snippet>
+        <demo-snippet class="centered-demo">
+            <template id="demo2">
+                <button id="copy-button-2">Imperative Copy</button>
+                <script>
+                    const btn2 = document.querySelector('#copy-button-2');
+                    btn2.addEventListener('click', function (e) {
+                        document.createElement('falconio-clipboard').copy('Imperative Copy');
+                        alert('Copied');
                     }, false);
                 </script>
             </template>
